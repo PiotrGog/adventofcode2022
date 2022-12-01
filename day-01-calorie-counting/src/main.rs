@@ -38,14 +38,31 @@ pub fn solve_part_1(file_path: &str) -> Option<u32> {
         .max()
 }
 
+pub fn solve_part_2(file_path: &str) -> u32 {
+    let data = load_file(file_path);
+    let elves = pare_data(data);
+    let mut elves_inventory = elves
+        .into_iter()
+        .map(|elf| elf.inventory.into_iter().sum::<u32>())
+        .collect::<Vec<_>>();
+    elves_inventory.sort();
+    elves_inventory.into_iter().rev().take(3).sum()
+}
+
 fn part_1(file_path: &str) {
     let result = solve_part_1(file_path);
     println!("Part 1 result: {:?}", result);
 }
 
+fn part_2(file_path: &str) {
+    let result = solve_part_2(file_path);
+    println!("Part 2 result: {:?}", result);
+}
+
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
@@ -72,5 +89,11 @@ mod tests {
     fn test_part_1() {
         let result = solve_part_1("./resources/test_data.txt");
         assert_eq!(result, Some(24000));
+    }
+
+    #[test]
+    fn test_part_2() {
+        let result = solve_part_2("./resources/test_data.txt");
+        assert_eq!(result, 45000);
     }
 }
