@@ -4,7 +4,7 @@ fn load_file(file_path: &str) -> String {
     fs::read_to_string(file_path).expect("Should have been able to read the file")
 }
 
-fn pare_data(string_data: String) -> Vec<Elf> {
+fn parse_data(string_data: String) -> Vec<Elf> {
     string_data
         .trim()
         .split("\n\n")
@@ -31,7 +31,7 @@ impl Elf {
 
 pub fn solve_part_1(file_path: &str) -> Option<u32> {
     let data = load_file(file_path);
-    let elves = pare_data(data);
+    let elves = parse_data(data);
     elves
         .into_iter()
         .map(|elf| elf.inventory.into_iter().sum())
@@ -40,7 +40,7 @@ pub fn solve_part_1(file_path: &str) -> Option<u32> {
 
 pub fn solve_part_2(file_path: &str) -> u32 {
     let data = load_file(file_path);
-    let elves = pare_data(data);
+    let elves = parse_data(data);
     let mut elves_inventory = elves
         .into_iter()
         .map(|elf| elf.inventory.into_iter().sum::<u32>())
@@ -72,7 +72,7 @@ mod tests {
     #[test]
     fn load_data_function_returns_vector_of_elves() {
         let data = load_file("./resources/test_data.txt");
-        let result = pare_data(data);
+        let result = parse_data(data);
         assert_eq!(
             result,
             vec![
