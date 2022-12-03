@@ -8,3 +8,6 @@
 ## Day 2: Rock Paper Scissors
  - [Part 1](day-02-rock-paper-scissors/README.md#part-1)
  - [Part 2](day-02-rock-paper-scissors/README.md#part-2)
+
+## Day 3: Rucksack Reorganization
+ - [Part 1](day-03-rucksack-reorganization/README.md#part-1)
