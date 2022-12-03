@@ -47,6 +47,39 @@ impl Rucksack {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
+struct RucksacksGroup<'a> {
+    rucksacks: &'a [Rucksack; 3],
+}
+
+impl<'a> RucksacksGroup<'a> {
+    pub fn new(rucksacks: &'a [Rucksack; 3]) -> Self {
+        Self { rucksacks }
+    }
+
+    pub fn get_the_same_type_rucksacks(&self) -> Option<char> {
+        let common_letters = self
+            .rucksacks
+            .iter()
+            .skip(1)
+            .fold(
+                self.rucksacks[0].items.chars().collect::<HashSet<_>>(),
+                |intersection, rucksack| {
+                    intersection
+                        .intersection(&rucksack.items.chars().collect::<HashSet<_>>())
+                        .cloned()
+                        .collect()
+                },
+            )
+            .into_iter()
+            .collect::<Vec<_>>();
+        if common_letters.len() != 1 {
+            return None;
+        }
+        Some(common_letters[0])
+    }
+}
+
 pub fn solve_part_1(file_path: &str) -> usize {
     let data = load_file(file_path);
     let rounds = parse_data(data);
@@ -56,14 +89,35 @@ pub fn solve_part_1(file_path: &str) -> usize {
         .sum()
 }
 
+pub fn solve_part_2(file_path: &str) -> usize {
+    let data = load_file(file_path);
+    let rounds = parse_data(data);
+    rounds
+        .chunks(3)
+        .map(|chunk| {
+            get_item_priority(
+                RucksacksGroup::new(chunk.try_into().unwrap())
+                    .get_the_same_type_rucksacks()
+                    .unwrap(),
+            )
+        })
+        .sum()
+}
+
 fn part_1(file_path: &str) {
     let result = solve_part_1(file_path);
     println!("Part 1 result: {:?}", result);
 }
 
+fn part_2(file_path: &str) {
+    let result = solve_part_2(file_path);
+    println!("Part 2 result: {:?}", result);
+}
+
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
@@ -129,5 +183,11 @@ mod tests {
     fn test_part_1() {
         let result = solve_part_1("./resources/test_data.txt");
         assert_eq!(result, 157);
+    }
+
+    #[test]
+    fn test_part_2() {
+        let result = solve_part_2("./resources/test_data.txt");
+        assert_eq!(result, 70);
     }
 }
