@@ -27,6 +27,13 @@ impl Range {
     pub fn in_other(&self, other: &Self) -> bool {
         self.0 >= other.0 && self.1 <= other.1
     }
+
+    pub fn overlap(&self, other: &Self) -> bool {
+        (self.0 >= other.0 && self.0 <= other.1)
+            || (self.1 >= other.0 && self.1 <= other.1)
+            || (other.0 >= self.0 && other.0 <= self.1)
+            || (other.1 >= self.0 && other.1 <= self.1)
+    }
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
@@ -36,6 +43,10 @@ impl ElvesPair {
     pub fn can_reduce(&self) -> bool {
         self.0.in_other(&self.1) || self.1.in_other(&self.0)
     }
+
+    pub fn overlap(&self) -> bool {
+        self.0.overlap(&self.1)
+    }
 }
 
 pub fn solve_part_1(file_path: &str) -> usize {
@@ -44,14 +55,26 @@ pub fn solve_part_1(file_path: &str) -> usize {
     elves_pair.into_iter().filter(ElvesPair::can_reduce).count()
 }
 
+pub fn solve_part_2(file_path: &str) -> usize {
+    let data = load_file(file_path);
+    let elves_pair = parse_data(data);
+    elves_pair.into_iter().filter(ElvesPair::overlap).count()
+}
+
 fn part_1(file_path: &str) {
     let result = solve_part_1(file_path);
     println!("Part 1 result: {:?}", result);
 }
 
+fn part_2(file_path: &str) {
+    let result = solve_part_2(file_path);
+    println!("Part 2 result: {:?}", result);
+}
+
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
@@ -79,5 +102,11 @@ mod tests {
     fn test_part_1() {
         let result = solve_part_1("./resources/test_data.txt");
         assert_eq!(result, 2);
+    }
+
+    #[test]
+    fn test_part_2() {
+        let result = solve_part_2("./resources/test_data.txt");
+        assert_eq!(result, 4);
     }
 }

@@ -15,3 +15,4 @@
 
 ## Day 4: Camp Cleanup
  - [Part 1](day-04-camp-cleanup/README.md#part-1)
+ - [Part 2](day-04-camp-cleanup/README.md#part-2)
