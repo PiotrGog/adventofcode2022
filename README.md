@@ -2,17 +2,22 @@
 - [Advent od Code 2022 main page](https://adventofcode.com/2022)
 
 ## Day 1: Calorie Counting
- - [Part 1](day-01-calorie-counting/README.md#part-1)
- - [Part 2](day-01-calorie-counting/README.md#part-2)
+ - [Code](day-01-calorie-counting)
+ - [Part 1 description](day-01-calorie-counting/README.md#part-1)
+ - [Part 2 description](day-01-calorie-counting/README.md#part-2)
 
 ## Day 2: Rock Paper Scissors
- - [Part 1](day-02-rock-paper-scissors/README.md#part-1)
- - [Part 2](day-02-rock-paper-scissors/README.md#part-2)
+ - [Code](day-02-rock-paper-scissors)
+ - [Part 1 description](day-02-rock-paper-scissors/README.md#part-1)
+ - [Part 2 description](day-02-rock-paper-scissors/README.md#part-2)
 
 ## Day 3: Rucksack Reorganization
- - [Part 1](day-03-rucksack-reorganization/README.md#part-1)
- - [Part 2](day-03-rucksack-reorganization/README.md#part-2)
+ - [Code](day-03-rucksack-reorganization)
+
+ - [Part 1 description](day-03-rucksack-reorganization/README.md#part-1)
+ - [Part 2 description](day-03-rucksack-reorganization/README.md#part-2)
 
 ## Day 4: Camp Cleanup
- - [Part 1](day-04-camp-cleanup/README.md#part-1)
- - [Part 2](day-04-camp-cleanup/README.md#part-2)
+ - [Code](day-04-camp-cleanup)
+ - [Part 1 description](day-04-camp-cleanup/README.md#part-1)
+ - [Part 2 description](day-04-camp-cleanup/README.md#part-2)
