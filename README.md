@@ -13,7 +13,6 @@
 
 ## Day 3: Rucksack Reorganization
  - [Code](day-03-rucksack-reorganization)
-
  - [Part 1 description](day-03-rucksack-reorganization/README.md#part-1)
  - [Part 2 description](day-03-rucksack-reorganization/README.md#part-2)
 
@@ -21,3 +20,7 @@
  - [Code](day-04-camp-cleanup)
  - [Part 1 description](day-04-camp-cleanup/README.md#part-1)
  - [Part 2 description](day-04-camp-cleanup/README.md#part-2)
+
+## Day 5: Supply Stacks
+ - [Code](day-05-supply-stacks)
+ - [Part 1 description](day-05-supply-stacks/README.md#part-1)
