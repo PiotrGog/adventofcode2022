@@ -24,3 +24,4 @@
 ## Day 5: Supply Stacks
  - [Code](day-05-supply-stacks)
  - [Part 1 description](day-05-supply-stacks/README.md#part-1)
+ - [Part 1 description](day-05-supply-stacks/README.md#part-2)
