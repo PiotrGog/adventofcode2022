@@ -29,3 +29,4 @@
 ## Day 6: Tuning Trouble
  - [Code](day-06-tuning-trouble)
  - [Part 1 description](day-06-tuning-trouble/README.md#part-1)
+ - [Part 2 description](day-06-tuning-trouble/README.md#part-2)
