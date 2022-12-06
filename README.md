@@ -24,4 +24,8 @@
 ## Day 5: Supply Stacks
  - [Code](day-05-supply-stacks)
  - [Part 1 description](day-05-supply-stacks/README.md#part-1)
- - [Part 1 description](day-05-supply-stacks/README.md#part-2)
+ - [Part 2 description](day-05-supply-stacks/README.md#part-2)
+
+## Day 6: Tuning Trouble
+ - [Code](day-06-tuning-trouble)
+ - [Part 1 description](day-06-tuning-trouble/README.md#part-1)
