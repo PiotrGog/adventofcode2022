@@ -35,3 +35,7 @@
  - [Code](day-07-no-space-left-on-device)
  - [Part 1 description](day-07-no-space-left-on-device/README.md#part-1)
  - [Part 2 description](day-07-no-space-left-on-device/README.md#part-2)
+
+## Day 8: Treetop Tree House
+ - [Code](day-08-treetop-tree-house)
+ - [Part 1 description](day-08-treetop-tree-house/README.md#part-1)
