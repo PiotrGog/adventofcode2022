@@ -40,3 +40,7 @@
  - [Code](day-08-treetop-tree-house)
  - [Part 1 description](day-08-treetop-tree-house/README.md#part-1)
  - [Part 2 description](day-08-treetop-tree-house/README.md#part-2)
+
+## Day 9: Rope Bridge
+ - [Code](day-09-rope-bridge)
+ - [Part 1 description](day-09-rope-bridge/README.md#part-1)
