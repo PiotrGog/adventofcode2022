@@ -39,3 +39,4 @@
 ## Day 8: Treetop Tree House
  - [Code](day-08-treetop-tree-house)
  - [Part 1 description](day-08-treetop-tree-house/README.md#part-1)
+ - [Part 2 description](day-08-treetop-tree-house/README.md#part-2)

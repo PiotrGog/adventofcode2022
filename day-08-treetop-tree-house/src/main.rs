@@ -82,10 +82,65 @@ fn count_visible_trees(forest: &Forest) -> usize {
     visible_trees.len()
 }
 
+fn calculate_scenic_point(x_pos: usize, y_pos: usize, forest: &Forest) -> usize {
+    let pos_tree_hight = forest.trees[x_pos][y_pos];
+    let mut go = true;
+    let seen_trees_x_down = ((x_pos + 1)..(forest.x_max))
+        .take_while(|x| {
+            let result = go;
+            go = forest.trees[*x][y_pos] < pos_tree_hight;
+            result
+        })
+        .count();
+    let mut go = true;
+    let seen_trees_x_up = (0..x_pos)
+        .rev()
+        .take_while(|x| {
+            let result = go;
+            go = forest.trees[*x][y_pos] < pos_tree_hight;
+            result
+        })
+        .count();
+    let mut go = true;
+    let seen_trees_y_right = ((y_pos + 1)..(forest.y_max))
+        .take_while(|y| {
+            let result = go;
+            go = forest.trees[x_pos][*y] < pos_tree_hight;
+            result
+        })
+        .count();
+    let mut go = true;
+    let seen_trees_y_left = (0..y_pos)
+        .rev()
+        .take_while(|y| {
+            let result = go;
+            go = forest.trees[x_pos][*y] < pos_tree_hight;
+            result
+        })
+        .count();
+    seen_trees_x_down * seen_trees_x_up * seen_trees_y_right * seen_trees_y_left
+}
+
+fn find_the_best_scenic_point(forest: &Forest) -> usize {
+    let mut score = 0;
+    for x in 0..forest.x_max {
+        for y in 0..forest.y_max {
+            score = score.max(calculate_scenic_point(x, y, forest));
+        }
+    }
+    score
+}
+
 fn solve_part_1(file_path: &str) -> usize {
     let data = load_file(file_path);
     let forest = parse_data(data);
     count_visible_trees(&forest)
+}
+
+fn solve_part_2(file_path: &str) -> usize {
+    let data = load_file(file_path);
+    let forest = parse_data(data);
+    find_the_best_scenic_point(&forest)
 }
 
 fn part_1(file_path: &str) {
@@ -93,9 +148,15 @@ fn part_1(file_path: &str) {
     println!("Part 1 result: {:?}", result);
 }
 
+fn part_2(file_path: &str) {
+    let result = solve_part_2(file_path);
+    println!("Part 2 result: {:?}", result);
+}
+
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
@@ -106,5 +167,25 @@ mod tests {
     fn test_part_1() {
         let result = solve_part_1("./resources/test_data.txt");
         assert_eq!(result, 21);
+    }
+
+    #[test]
+    fn test_part_2() {
+        let result = solve_part_2("./resources/test_data.txt");
+        assert_eq!(result, 8);
+    }
+
+    #[test]
+    fn test_score_scenic_1_2() {
+        let data = load_file("./resources/test_data.txt");
+        let forest = parse_data(data);
+        assert_eq!(calculate_scenic_point(1, 2, &forest), 4);
+    }
+
+    #[test]
+    fn test_score_scenic_3_2() {
+        let data = load_file("./resources/test_data.txt");
+        let forest = parse_data(data);
+        assert_eq!(calculate_scenic_point(3, 2, &forest), 8);
     }
 }
