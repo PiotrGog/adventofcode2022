@@ -44,3 +44,4 @@
 ## Day 9: Rope Bridge
  - [Code](day-09-rope-bridge)
  - [Part 1 description](day-09-rope-bridge/README.md#part-1)
+ - [Part 2 description](day-09-rope-bridge/README.md#part-2)
