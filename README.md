@@ -45,3 +45,7 @@
  - [Code](day-09-rope-bridge)
  - [Part 1 description](day-09-rope-bridge/README.md#part-1)
  - [Part 2 description](day-09-rope-bridge/README.md#part-2)
+
+## Day 10: Cathode-Ray Tube
+ - [Code](day-10-cathode-ray-tube)
+ - [Part 1 description](day-10-cathode-ray-tube/README.md#part-1)
