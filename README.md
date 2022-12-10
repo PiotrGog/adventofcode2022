@@ -34,3 +34,4 @@
 ## Day 7: No Space Left On Device
  - [Code](day-07-no-space-left-on-device)
  - [Part 1 description](day-07-no-space-left-on-device/README.md#part-1)
+ - [Part 2 description](day-07-no-space-left-on-device/README.md#part-2)

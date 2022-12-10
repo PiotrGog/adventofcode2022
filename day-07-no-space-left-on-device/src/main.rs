@@ -121,6 +121,23 @@ fn sum_directories_with_size_at_most(
         .sum()
 }
 
+fn find_smalest_dir_with_size_at_most(
+    directories_size: HashMap<Vec<String>, usize>,
+    size: usize,
+) -> usize {
+    directories_size
+        .into_iter()
+        .filter_map(|(_, directory_size)| {
+            if directory_size >= size {
+                Some(directory_size)
+            } else {
+                None
+            }
+        })
+        .min()
+        .unwrap()
+}
+
 pub fn solve_part_1(file_name: &str) -> usize {
     let data = load_file(file_name);
     let commands = parse_data(data);
@@ -129,14 +146,32 @@ pub fn solve_part_1(file_name: &str) -> usize {
     sum_directories_with_size_at_most(directories, 100000)
 }
 
+pub fn solve_part_2(file_name: &str) -> usize {
+    let data = load_file(file_name);
+    let commands = parse_data(data);
+    let files = get_files(commands);
+    let directories = directories_size(files);
+    let total_filesystem_size = 70000000;
+    let needed_size = 30000000;
+    let used_size = directories.get(&vec!["/".to_string()]).unwrap();
+    let available_space = total_filesystem_size - used_size;
+    find_smalest_dir_with_size_at_most(directories, needed_size - available_space)
+}
+
 fn part_1(file_name: &str) {
     let result = solve_part_1(file_name);
     println!("Part 1 result: {:?}", result);
 }
 
+fn part_2(file_name: &str) {
+    let result = solve_part_2(file_name);
+    println!("Part 2 result: {:?}", result);
+}
+
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
@@ -203,5 +238,11 @@ mod tests {
     fn test_part_1() {
         let result = solve_part_1("./resources/test_data.txt");
         assert_eq!(result, 95437);
+    }
+
+    #[test]
+    fn test_part_2() {
+        let result = solve_part_2("./resources/test_data.txt");
+        assert_eq!(result, 24933642);
     }
 }
