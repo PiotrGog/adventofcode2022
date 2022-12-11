@@ -50,3 +50,7 @@
  - [Code](day-10-cathode-ray-tube)
  - [Part 1 description](day-10-cathode-ray-tube/README.md#part-1)
  - [Part 2 description](day-10-cathode-ray-tube/README.md#part-2)
+
+## Day 11: Cathode-Ray Tube
+ - [Code](day-11-monkey-in-the-middle)
+ - [Part 1 description](day-11-monkey-in-the-middle/README.md#part-1)
