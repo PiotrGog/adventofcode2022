@@ -122,14 +122,44 @@ fn solve_part_1(file_path: &str) -> Option<usize> {
     }
 }
 
+fn solve_part_2(file_path: &str) -> Option<usize> {
+    let data = load_file(file_path);
+    let (area, _, target_position) = parse_data(data);
+    let Area {
+        area: area_vec,
+        x_size,
+        y_size,
+    } = &area;
+    let mut min_distance = None;
+    for x in 0..*x_size {
+        for y in 0..*y_size {
+            if area_vec[x][y] == 0 {
+                if let Some((distance, _)) =
+                    find_shortest_path(&area, Position(x, y), target_position)
+                {
+                    min_distance = Some(min_distance.unwrap_or(usize::MAX).min(distance));
+                }
+            }
+        }
+    }
+
+    min_distance
+}
+
 fn part_1(file_path: &str) {
     let result = solve_part_1(file_path);
     println!("Part 1 result: {:?}", result);
 }
 
+fn part_2(file_path: &str) {
+    let result = solve_part_2(file_path);
+    println!("Part 2 result: {:?}", result);
+}
+
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
@@ -140,5 +170,11 @@ mod tests {
     fn test_part_1() {
         let result = solve_part_1("./resources/test_data.txt");
         assert_eq!(result, Some(31));
+    }
+
+    #[test]
+    fn test_part_2() {
+        let result = solve_part_2("./resources/test_data.txt");
+        assert_eq!(result, Some(29));
     }
 }

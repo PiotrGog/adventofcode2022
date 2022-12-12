@@ -59,3 +59,4 @@
 ## Day 12: Hill Climbing Algorithm
  - [Code](day-12-hill-climbing-algorithm)
  - [Part 1 description](day-12-hill-climbing-algorithm/README.md#part-1)
+ - [Part 2 description](day-12-hill-climbing-algorithm/README.md#part-2)
