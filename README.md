@@ -64,3 +64,4 @@
 ## Day 13: Distress Signal
  - [Code](day-13-distress-signal)
  - [Part 1 description](day-13-distress-signal/README.md#part-1)
+ - [Part 2 description](day-13-distress-signal/README.md#part-2)

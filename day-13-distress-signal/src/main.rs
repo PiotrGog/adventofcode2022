@@ -140,14 +140,54 @@ fn solve_part_1(file_path: &str) -> usize {
         .sum()
 }
 
+fn solve_part_2(file_path: &str) -> usize {
+    let data = load_file(file_path);
+    let packets_pairs = parse_data(data);
+    let mut packets = packets_pairs
+        .into_iter()
+        .fold(vec![], |mut packets, packets_pairs| {
+            packets.push(packets_pairs.0);
+            packets.push(packets_pairs.1);
+            packets
+        });
+    let divider_packet1 = PacketValue::from_str("[[2]]").unwrap();
+    let divider_packet2 = PacketValue::from_str("[[6]]").unwrap();
+    packets.push(divider_packet1.clone());
+    packets.push(divider_packet2.clone());
+    packets.sort_by(|first_packet, second_packet| {
+        match PacketsPair::is_right_order_recurent(first_packet, second_packet) {
+            CheckStatus::RightOrder => std::cmp::Ordering::Less,
+            CheckStatus::WrongOrder => std::cmp::Ordering::Greater,
+            CheckStatus::Continue => std::cmp::Ordering::Equal,
+        }
+    });
+    packets
+        .into_iter()
+        .zip(1..)
+        .filter_map(|(packet, index)| {
+            if packet == divider_packet1 || packet == divider_packet2 {
+                Some(index)
+            } else {
+                None
+            }
+        })
+        .fold(1, |product, index| product * index)
+}
+
 fn part_1(file_path: &str) {
     let result = solve_part_1(file_path);
     println!("Part 1 result: {:?}", result);
 }
 
+fn part_2(file_path: &str) {
+    let result = solve_part_2(file_path);
+    println!("Part 2 result: {:?}", result);
+}
+
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
@@ -158,6 +198,12 @@ mod tests {
     fn test_part_1() {
         let result = solve_part_1("./resources/test_data.txt");
         assert_eq!(result, 13);
+    }
+
+    #[test]
+    fn test_part_2() {
+        let result = solve_part_2("./resources/test_data.txt");
+        assert_eq!(result, 140);
     }
 
     #[test]
