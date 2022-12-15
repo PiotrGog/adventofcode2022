@@ -39,44 +39,108 @@ fn parse_data(data: String) -> HashSet<Position> {
 #[derive(Debug, Clone, Copy, PartialOrd, Ord, PartialEq, Eq, Hash)]
 struct Position(usize, usize);
 
-fn drop_sand(mut sand: Position, cave: &mut HashSet<Position>) -> bool {
-    while let Some(next_sand) = drop_sand_iteration(sand, cave) {
-        if next_sand == sand {
-            cave.insert(next_sand);
-            return true;
-        } else {
-            sand = next_sand;
+mod part_1 {
+    use super::*;
+
+    pub(crate) fn drop_sand(mut sand: Position, cave: &mut HashSet<Position>) -> bool {
+        while let Some(next_sand) = drop_sand_iteration(sand, cave) {
+            if next_sand == sand {
+                cave.insert(next_sand);
+                return true;
+            } else {
+                sand = next_sand;
+            }
         }
+
+        false
     }
 
-    false
+    fn drop_sand_iteration(sand: Position, cave: &HashSet<Position>) -> Option<Position> {
+        let top_element = cave
+            .iter()
+            .filter(|cave_element| sand.0 == cave_element.0 && sand.1 < cave_element.1)
+            .min_by_key(|cave_element| cave_element.1);
+
+        let top_element = top_element?;
+
+        Some(
+            if !cave.contains(&Position(top_element.0 - 1, top_element.1)) {
+                Position(top_element.0 - 1, top_element.1)
+            } else if !cave.contains(&Position(top_element.0 + 1, top_element.1)) {
+                Position(top_element.0 + 1, top_element.1)
+            } else {
+                Position(top_element.0, top_element.1 - 1)
+            },
+        )
+    }
 }
 
-fn drop_sand_iteration(sand: Position, cave: &HashSet<Position>) -> Option<Position> {
-    let top_element = cave
-        .iter()
-        .filter(|cave_element| sand.0 == cave_element.0 && sand.1 < cave_element.1)
-        .min_by_key(|cave_element| cave_element.1);
+mod part_2 {
+    use super::*;
 
-    let top_element = top_element?;
+    pub(crate) fn drop_sand(
+        mut sand: Position,
+        cave: &mut HashSet<Position>,
+        highest_y: usize,
+    ) -> bool {
+        let start_sand = sand.clone();
+        while let Some(next_sand) = drop_sand_iteration(sand, cave, highest_y) {
+            if next_sand == sand {
+                cave.insert(next_sand);
+                return start_sand != next_sand;
+            } else {
+                sand = next_sand;
+            }
+        }
 
-    Some(
-        if !cave.contains(&Position(top_element.0 - 1, top_element.1)) {
-            Position(top_element.0 - 1, top_element.1)
-        } else if !cave.contains(&Position(top_element.0 + 1, top_element.1)) {
-            Position(top_element.0 + 1, top_element.1)
-        } else {
-            Position(top_element.0, top_element.1 - 1)
-        },
-    )
+        false
+    }
+
+    fn drop_sand_iteration(
+        sand: Position,
+        cave: &HashSet<Position>,
+        highest_y: usize,
+    ) -> Option<Position> {
+        let top_element = cave
+            .iter()
+            .filter(|cave_element| sand.0 == cave_element.0 && sand.1 < cave_element.1)
+            .min_by_key(|cave_element| cave_element.1);
+
+        let binding = Position(sand.0, highest_y);
+        let top_element = top_element.unwrap_or(&binding);
+
+        Some(
+            if !cave.contains(&Position(top_element.0 - 1, top_element.1))
+                && highest_y != top_element.1
+            {
+                Position(top_element.0 - 1, top_element.1)
+            } else if !cave.contains(&Position(top_element.0 + 1, top_element.1))
+                && highest_y != top_element.1
+            {
+                Position(top_element.0 + 1, top_element.1)
+            } else {
+                Position(top_element.0, top_element.1 - 1)
+            },
+        )
+    }
 }
 
 fn solve_part_1(file_path: &str) -> usize {
     let data = load_file(file_path);
     let mut cave = parse_data(data);
     (0..)
-        .take_while(|_| drop_sand(Position(500, 0), &mut cave))
+        .take_while(|_| part_1::drop_sand(Position(500, 0), &mut cave))
         .count()
+}
+
+fn solve_part_2(file_path: &str) -> usize {
+    let data = load_file(file_path);
+    let mut cave = parse_data(data);
+    let highest_y = cave.iter().map(|position| position.1).max().unwrap();
+    (0..)
+        .take_while(|_| part_2::drop_sand(Position(500, 0), &mut cave, highest_y + 2))
+        .count()
+        + 1
 }
 
 fn part_1(file_path: &str) {
@@ -84,9 +148,15 @@ fn part_1(file_path: &str) {
     println!("Part 1 result: {:?}", result);
 }
 
+fn part_2(file_path: &str) {
+    let result = solve_part_2(file_path);
+    println!("Part 2 result: {:?}", result);
+}
+
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
@@ -97,6 +167,12 @@ mod tests {
     fn test_part_1() {
         let result = solve_part_1("./resources/test_data.txt");
         assert_eq!(result, 24);
+    }
+
+    #[test]
+    fn test_part_2() {
+        let result = solve_part_2("./resources/test_data.txt");
+        assert_eq!(result, 93);
     }
 
     #[test]
