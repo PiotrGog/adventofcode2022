@@ -70,3 +70,7 @@
  - [Code](day-14-regolith-reservoir)
  - [Part 1 description](day-14-regolith-reservoir/README.md#part-1)
  - [Part 2 description](day-14-regolith-reservoir/README.md#part-2)
+
+## Day 15: Beacon Exclusion Zone
+ - [Code](day-15-beacon-exclusion-zone)
+ - [Part 1 description](day-15-beacon-exclusion-zone/README.md#part-1)
