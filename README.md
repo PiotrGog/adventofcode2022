@@ -89,3 +89,4 @@
 ## Day 18: Boiling Boulders
  - [Code](day-18-boiling-boulders)
  - [Part 1 description](day-18-boiling-boulders/README.md#part-1)
+ - [Part 2 description](day-18-boiling-boulders/README.md#part-2)
