@@ -90,3 +90,7 @@
  - [Code](day-18-boiling-boulders)
  - [Part 1 description](day-18-boiling-boulders/README.md#part-1)
  - [Part 2 description](day-18-boiling-boulders/README.md#part-2)
+
+## Day 19: Not Enough Minerals
+ - [Code](day-19-not-enough-minerals)
+ - [Part 1 description](day-19-not-enough-minerals/README.md#part-1)
