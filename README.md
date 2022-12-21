@@ -100,3 +100,7 @@
  - [Code](day-20-grove-positioning-system)
  - [Part 1 description](day-20-grove-positioning-system/README.md#part-1)
  - [Part 2 description](day-20-grove-positioning-system/README.md#part-2)
+
+## Day 21: Monkey Math
+ - [Code](day-21-monkey-math)
+ - [Part 1 description](day-21-monkey-math/README.md#part-1)
