@@ -95,3 +95,7 @@
  - [Code](day-19-not-enough-minerals)
  - [Part 1 description](day-19-not-enough-minerals/README.md#part-1)
  - [Part 2 description](day-19-not-enough-minerals/README.md#part-2)
+
+## Day 20: Grove Positioning System
+ - [Code](day-20-grove-positioning-system)
+ - [Part 1 description](day-20-grove-positioning-system/README.md#part-1)
