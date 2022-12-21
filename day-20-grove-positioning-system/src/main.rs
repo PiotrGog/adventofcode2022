@@ -41,14 +41,40 @@ fn solve_part_1(file_path: &str) -> isize {
         + mixed_number[(3000 + index) % mixed_number.len()].1
 }
 
+fn solve_part_2(file_path: &str) -> isize {
+    let decryption_key = 811589153;
+    let number_of_mix_operations = 10;
+
+    let data = load_file(file_path);
+    let numbers = parse_data(data)
+        .into_iter()
+        .map(|(position, value)| (position, value * decryption_key))
+        .collect();
+    let mixed_number =
+        (0..number_of_mix_operations).fold(numbers, |current_numbers, _| mix(current_numbers));
+    let index = mixed_number
+        .iter()
+        .position(|(_, value)| value == &0)
+        .unwrap();
+    mixed_number[(1000 + index) % mixed_number.len()].1
+        + mixed_number[(2000 + index) % mixed_number.len()].1
+        + mixed_number[(3000 + index) % mixed_number.len()].1
+}
+
 fn part_1(file_path: &str) {
     let result = solve_part_1(file_path);
     println!("Part 1 result: {:?}", result);
 }
 
+fn part_2(file_path: &str) {
+    let result = solve_part_2(file_path);
+    println!("Part 2 result: {:?}", result);
+}
+
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
@@ -59,5 +85,11 @@ mod tests {
     fn test_part_1() {
         let result = solve_part_1("./resources/test_data.txt");
         assert_eq!(result, 3);
+    }
+
+    #[test]
+    fn test_part_2() {
+        let result = solve_part_2("./resources/test_data.txt");
+        assert_eq!(result, 1623178306);
     }
 }
