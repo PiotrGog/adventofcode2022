@@ -104,3 +104,4 @@
 ## Day 21: Monkey Math
  - [Code](day-21-monkey-math)
  - [Part 1 description](day-21-monkey-math/README.md#part-1)
+ - [Part 2 description](day-21-monkey-math/README.md#part-2)
