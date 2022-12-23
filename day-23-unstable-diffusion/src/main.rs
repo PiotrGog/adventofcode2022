@@ -148,14 +148,37 @@ fn solve_part_1(file_path: &str) -> usize {
     (((max_row - min_row + 1) * (max_column - min_column + 1)) - number_of_elves) as usize
 }
 
+fn solve_part_2(file_path: &str) -> usize {
+    let data = load_file(file_path);
+    let mut elves = parse_data(data);
+    (0..)
+        .take_while(move |round_number| {
+            let new_elves = round(elves.clone(), *round_number);
+            if elves != new_elves {
+                elves = new_elves;
+                true
+            } else {
+                false
+            }
+        })
+        .count()
+        + 1
+}
+
 fn part_1(file_path: &str) {
     let result = solve_part_1(file_path);
+    println!("Part 1 result: {:?}", result);
+}
+
+fn part_2(file_path: &str) {
+    let result = solve_part_2(file_path);
     println!("Part 1 result: {:?}", result);
 }
 
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
@@ -166,5 +189,11 @@ mod tests {
     fn test_part_1() {
         let result = solve_part_1("./resources/test_data.txt");
         assert_eq!(result, 110);
+    }
+
+    #[test]
+    fn test_part_2() {
+        let result = solve_part_2("./resources/test_data.txt");
+        assert_eq!(result, 20);
     }
 }
