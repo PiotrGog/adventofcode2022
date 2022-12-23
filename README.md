@@ -110,3 +110,7 @@
  - [Code](day-22-monkey-map)
  - [Part 1 description](day-22-monkey-map/README.md#part-1)
  - [Part 2 description](day-22-monkey-map/README.md#part-2)
+
+## Day 23: Unstable Diffusion
+ - [Code](day-23-unstable-diffusion)
+ - [Part 1 description](day-23-unstable-diffusion/README.md#part-1)
