@@ -105,3 +105,7 @@
  - [Code](day-21-monkey-math)
  - [Part 1 description](day-21-monkey-math/README.md#part-1)
  - [Part 2 description](day-21-monkey-math/README.md#part-2)
+
+## Day 22: Monkey Map
+ - [Code](day-22-monkey-map)
+ - [Part 1 description](day-22-monkey-map/README.md#part-1)
