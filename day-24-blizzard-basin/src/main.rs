@@ -157,26 +157,40 @@ fn get_available_positions(
     } = blizzards;
 
     [
-        if up.row >= 0 && up.column >= 0 && !blizzards_positions.contains(&up)
+        if up.row >= 0
+            && up.column >= 0
+            && down.column < *columns
+            && !blizzards_positions.contains(&up)
             || up == get_start_position(blizzards)
         {
             Some(up)
         } else {
             None
         },
-        if down.row < *rows && down.column >= 0 && !blizzards_positions.contains(&down)
+        if down.row < *rows
+            && down.column >= 0
+            && down.column < *columns
+            && !blizzards_positions.contains(&down)
             || down == get_stop_position(blizzards)
         {
             Some(down)
         } else {
             None
         },
-        if left.column >= 0 && left.row >= 0 && !blizzards_positions.contains(&left) {
+        if left.column >= 0
+            && left.row >= 0
+            && right.row < *rows
+            && !blizzards_positions.contains(&left)
+        {
             Some(left)
         } else {
             None
         },
-        if right.column < *columns && right.row >= 0 && !blizzards_positions.contains(&right) {
+        if right.column < *columns
+            && right.row >= 0
+            && right.row < *rows
+            && !blizzards_positions.contains(&right)
+        {
             Some(right)
         } else {
             None
@@ -197,10 +211,11 @@ fn find_shortest_path(
     blizzards: &Blizzards,
     start_position: Position,
     target_position: Position,
+    start_time: i32,
+    precomputed_blizzards_positions: &mut HashMap<i32, BlizzardsPositions>,
 ) -> Option<i32> {
-    let mut visited = HashSet::from([(start_position, 0)]);
-    let mut queue = VecDeque::from([(start_position, 0)]);
-    let mut precomputed_blizzards_positions = HashMap::new();
+    let mut visited = HashSet::from([(start_position, start_time)]);
+    let mut queue = VecDeque::from([(start_position, start_time)]);
 
     let number_of_possible_configuration = nww(blizzards.rows, blizzards.columns);
 
@@ -213,7 +228,7 @@ fn find_shortest_path(
         let blizzards_positions = precomputed_blizzards_positions
             .entry(next_step_num.rem_euclid(number_of_possible_configuration))
             .or_insert(get_blizzards_positions_at(blizzards, next_step_num));
-        get_available_positions(&current_position, blizzards, blizzards_positions)
+        get_available_positions(&current_position, blizzards, &blizzards_positions)
             .into_iter()
             .for_each(|position| {
                 if !visited.contains(&(position, next_step_num)) {
@@ -248,6 +263,36 @@ fn solve_part_1(file_path: &str) -> Option<i32> {
         &blizzards,
         get_start_position(&blizzards),
         get_stop_position(&blizzards),
+        0,
+        &mut HashMap::new(),
+    )
+}
+
+fn solve_part_2(file_path: &str) -> Option<i32> {
+    let data = load_file(file_path);
+    let blizzards = parse_data(data);
+
+    let mut precomputed_blizzards_positions = HashMap::new();
+    let mut steps = find_shortest_path(
+        &blizzards,
+        get_start_position(&blizzards),
+        get_stop_position(&blizzards),
+        0,
+        &mut precomputed_blizzards_positions,
+    )?;
+    steps = find_shortest_path(
+        &blizzards,
+        get_stop_position(&blizzards),
+        get_start_position(&blizzards),
+        steps,
+        &mut precomputed_blizzards_positions,
+    )?;
+    find_shortest_path(
+        &blizzards,
+        get_start_position(&blizzards),
+        get_stop_position(&blizzards),
+        steps,
+        &mut precomputed_blizzards_positions,
     )
 }
 
@@ -256,9 +301,15 @@ fn part_1(file_path: &str) {
     println!("Part 1 result: {:?}", result);
 }
 
+fn part_2(file_path: &str) {
+    let result = solve_part_2(file_path);
+    println!("Part 2 result: {:?}", result);
+}
+
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
@@ -269,6 +320,12 @@ mod tests {
     fn test_part_1() {
         let result = solve_part_1("./resources/test_data.txt");
         assert_eq!(result, Some(18));
+    }
+
+    #[test]
+    fn test_part_2() {
+        let result = solve_part_2("./resources/test_data.txt");
+        assert_eq!(result, Some(54));
     }
 
     #[test]
