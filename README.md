@@ -115,3 +115,7 @@
  - [Code](day-23-unstable-diffusion)
  - [Part 1 description](day-23-unstable-diffusion/README.md#part-1)
  - [Part 2 description](day-23-unstable-diffusion/README.md#part-2)
+
+## Day 24: Blizzard Basin
+ - [Code](day-24-blizzard-basin)
+ - [Part 1 description](day-24-blizzard-basin/README.md#part-1)
