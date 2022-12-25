@@ -120,3 +120,7 @@
  - [Code](day-24-blizzard-basin)
  - [Part 1 description](day-24-blizzard-basin/README.md#part-1)
  - [Part 2 description](day-24-blizzard-basin/README.md#part-2)
+
+## Day 25: Full of Hot Air
+ - [Code](day-25-full-of-hot-air)
+ - [Part 1 description](day-25-full-of-hot-air/README.md#part-1)
