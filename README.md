@@ -1,5 +1,13 @@
 # Advent of Code 2022
-- [Advent od Code 2022 main page](https://adventofcode.com/2022)
+
+## [Advent od Code 2022 main page](https://adventofcode.com/2022)
+
+## Description
+
+Advent of Code 2022 solutions in Rust.
+
+## Final result
+![Final Advent of Code 2022 result](final_image.png "Final Advent of Code 2022 result").
 
 ## Day 1: Calorie Counting
  - [Code](day-01-calorie-counting)
