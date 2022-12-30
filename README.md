@@ -84,3 +84,4 @@
 ## Day 17: Pyroclastic Flow
  - [Code](day-17-pyroclastic-flow)
  - [Part 1 description](day-17-pyroclastic-flow/README.md#part-1)
+ - [Part 2 description](day-17-pyroclastic-flow/README.md#part-2)

@@ -1,4 +1,7 @@
-use std::{collections::HashSet, fs};
+use std::{
+    collections::{HashMap, HashSet},
+    fs,
+};
 
 fn load_file(file_path: &str) -> String {
     fs::read_to_string(file_path).expect("Should have been able to read the file")
@@ -163,6 +166,24 @@ fn drop_rock(mut rock: Rock, jets: &Vec<char>, tower: &mut Tower, time: &mut usi
     }
 }
 
+fn signature(tower: &Tower) -> u64 {
+    let mut mask = 1;
+    let mut sig = 0;
+    for i in 0..10 {
+        for j in 0..tower.width {
+            let coords = (j, tower.height - i);
+            if tower.rocks.contains(&coords) {
+                sig |= mask;
+            }
+            mask <<= 1;
+        }
+        if tower.height - i == 0 {
+            break;
+        }
+    }
+    sig
+}
+
 fn solve_part_1(file_path: &str) -> usize {
     let mut tower = Tower {
         height: 0,
@@ -183,14 +204,59 @@ fn solve_part_1(file_path: &str) -> usize {
     tower.height
 }
 
+fn solve_part_2(file_path: &str) -> usize {
+    let mut tower = Tower {
+        height: 0,
+        width: 7,
+        rocks: HashSet::new(),
+    };
+
+    let rocks_to_throw = 1000000000000;
+
+    let data = load_file(file_path).trim().to_string();
+    let jets = jets(&data);
+    let mut time = 0;
+    let mut skipped_add = 0;
+    let mut i = 0;
+
+    let mut precomputed = HashMap::<(u64, usize, usize), (usize, usize)>::new();
+
+    while i < rocks_to_throw {
+        let rock = Rock::rocks_generator(i)(tower.height + 3);
+        drop_rock(rock, &jets, &mut tower, &mut time);
+        time %= jets.len();
+        let sign = signature(&tower);
+
+        let signature_key = (sign, time, i % 5);
+        if let Some((previous_height, rock_num)) = precomputed.get(&signature_key) {
+            let rocks_diff = i - rock_num;
+            let height_diff = tower.height - previous_height;
+            let to_max = rocks_to_throw - i;
+            i += (to_max / rocks_diff) * rocks_diff;
+            skipped_add += (to_max / rocks_diff) * height_diff;
+        } else {
+            precomputed.insert(signature_key, (tower.height, i));
+        }
+        i += 1;
+    }
+
+    tower.height + skipped_add
+}
+
 fn part_1(file_path: &str) {
     let result = solve_part_1(file_path);
     println!("Part 1 result: {:?}", result);
 }
 
+fn part_2(file_path: &str) {
+    let result = solve_part_2(file_path);
+    println!("Part 2 result: {:?}", result);
+}
+
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
@@ -201,5 +267,11 @@ mod tests {
     fn test_part_1() {
         let result = solve_part_1("./resources/test_data.txt");
         assert_eq!(result, 3068);
+    }
+
+    #[test]
+    fn test_part_2() {
+        let result = solve_part_2("./resources/test_data.txt");
+        assert_eq!(result, 1514285714288);
     }
 }
