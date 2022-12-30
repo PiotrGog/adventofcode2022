@@ -109,3 +109,4 @@
 ## Day 22: Monkey Map
  - [Code](day-22-monkey-map)
  - [Part 1 description](day-22-monkey-map/README.md#part-1)
+ - [Part 2 description](day-22-monkey-map/README.md#part-2)
