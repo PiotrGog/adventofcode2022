@@ -79,3 +79,4 @@
 ## Day 16: Proboscidea Volcanium
  - [Code](day-16-proboscidea-volcanium)
  - [Part 1 description](day-16-proboscidea-volcanium/README.md#part-1)
+ - [Part 2 description](day-16-proboscidea-volcanium/README.md#part-2)
