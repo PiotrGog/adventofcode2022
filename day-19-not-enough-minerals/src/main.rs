@@ -296,14 +296,33 @@ fn solve_part_1(file_path: &str) -> usize {
         .sum()
 }
 
+fn solve_part_2(file_path: &str) -> usize {
+    let data = load_file(file_path);
+    let blueprints = parse_data(data);
+    let statuses = blueprints
+        .into_iter()
+        .map(|blueprint| Status::new(blueprint));
+    statuses
+        .into_iter()
+        .take(3)
+        .map(|status| Solver::solve(32, status))
+        .product()
+}
+
 fn part_1(file_path: &str) {
     let result = solve_part_1(file_path);
     println!("Part 1 result: {:?}", result);
 }
 
+fn part_2(file_path: &str) {
+    let result = solve_part_2(file_path);
+    println!("Part 2 result: {:?}", result);
+}
+
 fn main() {
     const FILE_PATH: &str = "./resources/puzzle.txt";
     part_1(FILE_PATH);
+    part_2(FILE_PATH);
 }
 
 #[cfg(test)]
